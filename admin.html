@@ -1,833 +1,566 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acesso - Condomínio Mandala II</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Recibos - Condomínio Mandala II</title>
     <style>
-        /* Variáveis de Cores e Estilos */
-        :root {
-            --primary-color: #007bff; /* Azul moderno */
-            --secondary-color: #6c757d; /* Cinza para detalhes */
-            --success-color: #28a745; /* Verde para ação principal */
-            --warning-color: #ffc107; /* Amarelo/Laranja para secundário */
-            --danger-color: #dc3545; /* Vermelho para reset */
-            --background-light: #f8f9fa;
-            --text-dark: #343a40;
-            --border-radius: 8px;
-            --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.1);
-            --shadow-btn: 0 2px 4px rgba(0, 0, 0, 0.2);
-            --input-padding: 12px;
-        }
+      /* Variáveis de Cores e Estilos */
+      :root {
+        --primary-color: #007bff;
+        --secondary-color: #6c757d;
+        --success-color: #28a745;
+        --danger-color: #dc3545;
+        --background-light: #f8f9fa;
+        --text-dark: #343a40;
+        --border-radius: 8px;
+        --shadow-subtle: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --shadow-btn: 0 2px 4px rgba(0, 0, 0, 0.2);
+        --input-padding: 12px;
+      }
 
-        /* ESTILOS GLOBAIS - MANTIDOS E ADAPTADOS */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-            background-color: var(--background-light);
-            color: var(--text-dark);
-            display: flex;
-            justify-content: center;
-        }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+        background-color: var(--background-light);
+        color: var(--text-dark);
+        display: flex;
+        justify-content: center;
+      }
 
-        .container {
-            width: 100%;
-            max-width: 700px;
-            margin: 20px auto;
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-subtle);
-            background-color: white;
-            transition: all 0.3s ease;
-        }
+      .container {
+        width: 100%;
+        max-width: 700px;
+        margin: 20px auto;
+        padding: 30px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-subtle);
+        background-color: white;
+      }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 15px;
-        }
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid var(--primary-color);
+        padding-bottom: 15px;
+      }
 
-        .header h1 {
-            color: var(--primary-color);
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
+      .header h1 {
+        color: var(--primary-color);
+        font-size: 1.8rem;
+        margin-bottom: 5px;
+      }
 
-        .header p {
-            color: var(--secondary-color);
-            font-size: 0.9rem;
-            margin: 0;
-        }
+      .header p {
+        color: var(--secondary-color);
+        font-size: 0.9rem;
+        margin: 0;
+      }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+      .form-group {
+        margin-bottom: 20px;
+      }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
 
-        select, input[type="text"], input[type="tel"], input[type="email"], input[type="password"] {
-            width: 100%;
-            padding: var(--input-padding);
-            border: 1px solid #ced4da;
-            border-radius: var(--border-radius);
-            box-sizing: border-box;
-            background-color: #fff;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
+      select,
+      input[type="text"] {
+        width: 100%;
+        padding: var(--input-padding);
+        border: 1px solid #ced4da;
+        border-radius: var(--border-radius);
+        box-sizing: border-box;
+        background-color: #fff;
+      }
 
-        select:focus, input:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-            outline: none;
-        }
+      button {
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: background-color 0.3s;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
 
-        button {
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            margin-right: 15px;
-            margin-bottom: 10px;
-            transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
-            box-shadow: var(--shadow-btn);
-        }
+      #gerarRecibo {
+        background-color: var(--success-color);
+        margin-top: 10px;
+      }
 
-        button:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
+      #logoutBtn {
+        background-color: var(--danger-color);
+        float: right;
+        margin-bottom: 20px;
+      }
 
-        button:active {
-            transform: translateY(0);
-            box-shadow: none;
-        }
-        
-        /* ESTILOS NOVOS PARA LOGIN */
-        #loginContainer {
-            max-width: 400px;
-            margin: 50px auto;
-            padding: 30px;
-            border: 1px solid #e9ecef;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-subtle);
-            background-color: white;
-            text-align: center;
-        }
+      /* Melhoria de Responsividade: Data Picker usa flexbox */
+      .date-picker {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
 
-        #loginContainer h2 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
+      .date-picker select {
+        flex: 1;
+        min-width: 100px;
+      }
 
-        #loginContainer .form-group {
-            text-align: left;
-        }
-
-        .login-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .login-actions a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-
-        .login-actions a:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }
-
-        #loginBtn {
-            background-color: var(--success-color); /* Verde para Logar */
-            width: 100%;
-            margin-right: 0;
-        }
-        
-        #cadastrarBtn {
-            background-color: var(--primary-color); /* Azul para Cadastrar */
-            width: 100%;
-            margin-right: 0;
-        }
-
-        /* Estilos do Recibo Original - Adaptados */
-        #reciboApp {
-            /* Inicialmente oculto */
-            display: none;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        .recibo {
-            margin-top: 30px;
-            padding: 30px;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            background-color: #ffffff;
-            width: 100%;
-            box-sizing: border-box;
-            box-shadow: var(--shadow-subtle);
-        }
-
-        .recibo-header {
-            text-align: center;
-            margin-bottom: 25px;
-            border-bottom: 1px dashed var(--secondary-color);
-            padding-bottom: 15px;
-        }
-
-        .recibo-header h2 {
-            font-size: 1.5rem;
-            color: var(--success-color);
-            margin: 0;
-        }
-
-        .recibo-details p {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-        }
-
-        .recibo-details strong {
-            color: var(--primary-color);
-        }
-        
-        /* Assinatura Area */
-        .assinatura-area {
-            display: flex;
-            flex-direction: column; 
-            align-items: flex-end; 
-            margin-top: 50px; 
-            padding-top: 20px;
-            border-top: 1px dashed var(--secondary-color);
-        }
-
-        .assinatura-line {
-            width: 200px; 
-            border-bottom: 1px solid #000; 
-            margin-bottom: 5px; 
-            position: relative; 
-            height: 30px; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-        }
-
-        /* Melhoria de Responsividade: Data Picker usa flexbox */
-        .date-picker {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap; 
-        }
-
+      @media (max-width: 480px) {
         .date-picker select {
-            flex: 1;
-            min-width: 100px; 
+          min-width: 100%;
+          flex-basis: 100%;
         }
-        
-        @media (max-width: 480px) {
-            .date-picker select {
-                min-width: 100%; 
-                flex-basis: 100%; 
-            }
-        }
-        
-        #gerarRecibo {
-            background-color: var(--success-color); 
-        }
-        
-        /* Estilos de Impressão */
-        @media print {
-            body {
-                margin: 0;
-                padding: 0;
-                font-size: 12pt;
-                line-height: 1.4;
-                background: white;
-            }
+      }
 
-            .container, #reciboApp {
-                width: 100%;
-                max-width: 100%;
-                margin: 0;
-                padding: 0;
-                border: none;
-                box-shadow: none;
-            }
-
-            .recibo {
-                page-break-inside: avoid;
-                margin: 0;
-                padding: 10mm;
-                border: none;
-                width: 100%;
-                height: auto;
-                box-shadow: none;
-            }
-            
-            button, .button-group, .header, form, #loginContainer { 
-                display: none !important;
-            }
-            
-            @page {
-                size: A4;
-                margin: 15mm;
-            }
+      /* Estilos de Impressão (para o popup) */
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+          font-size: 12pt;
+          line-height: 1.4;
+          background: white;
         }
+        .container,
+        #reciboApp {
+          width: 100%;
+          max-width: 100%;
+          margin: 0;
+          padding: 0;
+          border: none;
+          box-shadow: none;
+        }
+        .recibo {
+          page-break-inside: avoid;
+          margin: 0;
+          padding: 10mm;
+          border: none;
+          width: 100%;
+          height: auto;
+          box-shadow: none;
+        }
+        button,
+        .header,
+        form {
+          display: none !important;
+        }
+        @page {
+          size: A4;
+          margin: 15mm;
+        }
+      }
     </style>
-</head>
-<body>
-    
-    <div id="loginContainer">
-        <div class="header" style="border-bottom: none;">
-            <h1>CONDOMÍNIO MANDALA II</h1>
-            <p>Sistema de Recibos</p>
-        </div>
-        <h2>Acesso ao Sistema</h2>
-
-        <form id="loginForm">
-            <div class="form-group">
-                <label for="loginEmail">E-mail:</label>
-                <input type="email" id="loginEmail" placeholder="admin@mandala.com" required>
-            </div>
-            <div class="form-group">
-                <label for="loginSenha">Senha:</label>
-                <input type="password" id="loginSenha" placeholder="********" required>
-            </div>
-            
-            <button type="submit" id="loginBtn">LOGAR</button>
-
-            <div class="login-actions">
-                <button type="button" id="cadastrarBtn" onclick="alert('Funcionalidade de Cadastro não disponível nesta versão. Por favor, utilize as credenciais de administrador.');">CADASTRAR (E-mail e Senha)</button>
-                
-                <a href="#" onclick="alert('Funcionalidade indisponível. Por favor, entre em contato com o síndico Luiz Sales para recuperar sua senha.'); return false;">Esqueci minha senha</a>
-            </div>
-            <p id="loginMessage" style="color: var(--danger-color); margin-top: 15px;"></p>
-        </form>
-    </div>
-
+  </head>
+  <body>
     <div id="reciboApp" class="container">
-        
-        <div class="header">
-            <h1>CONDOMÍNIO RESIDENCIAL MANDALA II</h1>
-            <p>Rua Humberto de Campos, nº273, Bairro da Luz Nova Iguaçu RJ</p>
-            <p>CEP 26.255-550</p>
+      <div class="header">
+        <h1>CONDOMÍNIO RESIDENCIAL MANDALA II</h1>
+        <p>Rua Humberto de Campos, nº273, Bairro da Luz Nova Iguaçu RJ</p>
+        <p>CEP 26.255-550</p>
+      </div>
+
+      <button type="button" id="logoutBtn">Sair</button>
+
+      <form id="reciboForm" style="clear: both">
+        <div class="form-group">
+          <label for="bloco">Bloco:</label>
+          <select id="bloco" required>
+            <option value="">Selecione o Bloco</option>
+            <option value="1">Bloco 1</option>
+            <option value="2">Bloco 2</option>
+          </select>
         </div>
-        
-        <button type="button" id="logoutBtn" style="background-color: var(--danger-color); float: right; margin-bottom: 20px;">Sair</button>
 
-        <form id="reciboForm" style="clear: both;">
-            <div class="form-group">
-                <label for="bloco">Bloco:</label>
-                <select id="bloco" required>
-                    <option value="">Selecione o Bloco</option>
-                    <option value="1">Bloco 1</option>
-                    <option value="2">Bloco 2</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="apartamento">Apartamento:</label>
-                <select id="apartamento" required disabled>
-                    <option value="">Selecione o Apartamento</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="condomino">Condômino:</label>
-                <select id="condomino" required disabled>
-                    <option value="">Selecione o Condômino</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="mesReferencia">Mês de Referência:</label>
-                <select id="mesReferencia" required>
-                    <option value="">Selecione o Mês</option>
-                    <option value="01/2025">Janeiro/2025</option>
-                    <option value="02/2025">Fevereiro/2025</option>
-                    <option value="03/2025">Março/2025</option>
-                    <option value="04/2025">Abril/2025</option>
-                    <option value="05/2025">Maio/2025</option>
-                    <option value="06/2025">Junho/2025</option>
-                    <option value="07/2025">Julho/2025</option>
-                    <option value="08/2025">Agosto/2025</option>
-                    <option value="09/2025">Setembro/2025</option>
-                    <option value="10/2025">Outubro/2025</option>
-                    <option value="11/2025">Novembro/2025</option>
-                    <option value="12/2025">Dezembro/2025</option>
-                    <option value="01/2026">Janeiro/2026</option>
-                    <option value="02/2026">Fevereiro/2026</option>
-                    <option value="03/2026">Março/2026</option>
-                    <option value="04/2026">Abril/2026</option>
-                    <option value="05/2026">Maio/2026</option>
-                    <option value="06/2026">Junho/2026</option>
-                    <option value="07/2026">Julho/2026</option>
-                    <option value="08/2026">Agosto/2026</option>
-                    <option value="09/2026">Setembro/2026</option>
-                    <option value="10/2026">Outubro/2026</option>
-                    <option value="11/2026">Novembro/2026</option>
-                    <option value="12/2026">Dezembro/2026</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="valor">Valor do Condomínio (R$):</label>
-                <input type="text" id="valor" inputmode="decimal" required placeholder="0,00">
-            </div>
-
-            <div class="form-group">
-                <label>Data do Recibo:</label>
-                <div class="date-picker">
-                    <select id="dia" required>
-                        <option value="">Dia</option>
-                    </select>
-                    <select id="mes" required>
-                        <option value="">Mês</option>
-                        <option value="01">Janeiro</option>
-                        <option value="02">Fevereiro</option>
-                        <option value="03">Março</option>
-                        <option value="04">Abril</option>
-                        <option value="05">Maio</option>
-                        <option value="06">Junho</option>
-                        <option value="07">Julho</option>
-                        <option value="08">Agosto</option>
-                        <option value="09">Setembro</option>
-                        <option value="10">Outubro</option>
-                        <option value="11">Novembro</option>
-                        <option value="12">Dezembro</option>
-                    </select>
-                    <select id="ano" required>
-                        <option value="">Ano</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                    </select>
-                </div>
-            </div>
-
-            <button type="button" id="gerarRecibo">Gerar Recibo</button>
-        </form>
-        
-        <div id="reciboContainer" class="hidden"> 
-            <div class="recibo" id="reciboContent">
-                <div class="recibo-header">
-                    <h2>RECIBO DE PAGAMENTO</h2>
-                    <p>CONDOMÍNIO RESIDENCIAL MANDALA II</p>
-                </div>
-
-                <div class="recibo-details">
-                    <p>Recebi do Sr.(a) <strong><span id="reciboCondomino"></span></strong> a quantia de <strong>R$ <span id="reciboValor"></span> (<span id="reciboValorExtenso"></span>)</strong> referente ao pagamento da taxa condominial do mês <strong><span id="reciboMes"></span></strong>.</p>
-                    <p>Unidade: Bloco <strong><span id="reciboBloco"></span></strong> Apartamento: <strong><span id="reciboApartamento"></span></strong></p>
-                </div>
-
-                <div class="recibo-footer">
-                    <p>Nova Iguaçu, <span id="reciboData"></span></p>
-                    <p>_________________________________</p>
-                    <p>Responsável pelo Condomínio</p>
-                    <p>Luiz Sales - Síndico</p>
-                </div>
-            </div>
+        <div class="form-group">
+          <label for="apartamento">Apartamento:</label>
+          <select id="apartamento" required disabled>
+            <option value="">Selecione o Apartamento</option>
+          </select>
         </div>
+
+        <div class="form-group">
+          <label for="condomino">Condômino:</label>
+          <select id="condomino" required disabled>
+            <option value="">Selecione o Condômino</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="mesReferencia">Mês de Referência:</label>
+          <select id="mesReferencia" required>
+            <option value="">Selecione o Mês</option>
+            <option value="01/2025">Janeiro/2025</option>
+            <option value="02/2025">Fevereiro/2025</option>
+            <option value="03/2025">Março/2025</option>
+            <option value="04/2025">Abril/2025</option>
+            <option value="05/2025">Maio/2025</option>
+            <option value="06/2025">Junho/2025</option>
+            <option value="07/2025">Julho/2025</option>
+            <option value="08/2025">Agosto/2025</option>
+            <option value="09/2025">Setembro/2025</option>
+            <option value="10/2025">Outubro/2025</option>
+            <option value="11/2025">Novembro/2025</option>
+            <option value="12/2025">Dezembro/2025</option>
+            <option value="01/2026">Janeiro/2026</option>
+            <option value="02/2026">Fevereiro/2026</option>
+            <option value="03/2026">Março/2026</option>
+            <option value="04/2026">Abril/2026</option>
+            <option value="05/2026">Maio/2026</option>
+            <option value="06/2026">Junho/2026</option>
+            <option value="07/2026">Julho/2026</option>
+            <option value="08/2026">Agosto/2026</option>
+            <option value="09/2026">Setembro/2026</option>
+            <option value="10/2026">Outubro/2026</option>
+            <option value="11/2026">Novembro/2026</option>
+            <option value="12/2026">Dezembro/2026</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="valor">Valor do Condomínio (R$):</label>
+          <input
+            type="text"
+            id="valor"
+            inputmode="decimal"
+            required
+            placeholder="0,00"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Data do Recibo:</label>
+          <div class="date-picker">
+            <select id="dia" required>
+              <option value="">Dia</option>
+            </select>
+            <select id="mes" required>
+              <option value="">Mês</option>
+              <option value="01">Janeiro</option>
+              <option value="02">Fevereiro</option>
+              <option value="03">Março</option>
+              <option value="04">Abril</option>
+              <option value="05">Maio</option>
+              <option value="06">Junho</option>
+              <option value="07">Julho</option>
+              <option value="08">Agosto</option>
+              <option value="09">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+            <select id="ano" required>
+              <option value="">Ano</option>
+              <option value="2024">2024</option>
+              <option value="2025">2025</option>
+              <option value="2026">2026</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="button" id="gerarRecibo">Gerar Recibo</button>
+      </form>
     </div>
 
     <script>
-        // --- LÓGICA DE AUTENTICAÇÃO ---
-        const loginContainer = document.getElementById('loginContainer');
-        const reciboApp = document.getElementById('reciboApp');
-        
-        const loginForm = document.getElementById('loginForm');
-        const loginEmailInput = document.getElementById('loginEmail');
-        const loginSenhaInput = document.getElementById('loginSenha');
-        const loginMessage = document.getElementById('loginMessage');
-        const logoutBtn = document.getElementById('logoutBtn');
+      // --- 1. VERIFICAÇÃO DE ACESSO ---
+      if (localStorage.getItem('isLoggedIn') !== 'true') {
+          alert('Acesso negado. Por favor, faça login.');
+          window.location.href = 'login.html'; // CORRIGIDO: Redireciona para login.html
+      }
 
-        // Credenciais Fixas
-        const USER_EMAIL = "admin@mandala.com";
-        const USER_PASSWORD = "admin@123"; 
-
-        function fazerLogin(event) {
-            event.preventDefault();
-            const email = loginEmailInput.value;
-            const senha = loginSenhaInput.value;
-
-            if (email === USER_EMAIL && senha === USER_PASSWORD) {
-                // Sucesso
-                loginContainer.classList.add('hidden');
-                reciboApp.style.display = 'block';
-                loginMessage.textContent = '';
-                localStorage.setItem('isLoggedIn', 'true');
-            } else {
-                // Falha
-                loginMessage.textContent = 'E-mail ou senha incorretos.';
-                loginSenhaInput.value = '';
-            }
-        }
-        
-        function fazerLogout() {
-            localStorage.removeItem('isLoggedIn');
-            reciboApp.style.display = 'none';
-            loginContainer.classList.remove('hidden');
-            document.getElementById('reciboForm').reset();
-            
-            // Reseta estados dos selects
-            apartamentoSelect.disabled = true;
-            condominoSelect.disabled = true;
-            diaSelect.innerHTML = '<option value="">Dia</option>';
-            preencherDataAtual();
-        }
-
-        // Event Listeners de Autenticação
-        loginForm.addEventListener('submit', fazerLogin);
-        logoutBtn.addEventListener('click', fazerLogout);
-        
-        // Verifica se já está logado ao carregar a página
-        if (localStorage.getItem('isLoggedIn') === 'true') {
-            reciboApp.style.display = 'block';
-            loginContainer.classList.add('hidden');
-        } else {
-            loginContainer.classList.remove('hidden');
-        }
+      document.getElementById('logoutBtn').addEventListener('click', function() {
+          localStorage.removeItem('isLoggedIn');
+          window.location.href = 'login.html'; // CORRIGIDO: Redireciona para login.html
+      });
 
 
-        // --- LÓGICA ORIGINAL DO RECIBO ---
+      // --- 2. LÓGICA DO RECIBO ---
+      // ... (O restante do código de lógica do recibo é mantido)
 
-        // Banco de dados simulado
-        const condominos = {
-            "1": { "101": "Camila", "102": "Elizabeth", "201": "Luiz Emanoel / Cira", "202": "Ana / Bismarck", "301": "Luciane / Sidnei", "302": "Janaína" },
-            "2": { "101": "Luizette", "102": "Luiz Carlos / Alzira", "201": "Ismênia", "202": "José Guerra", "301": "Vanessa / Wesley", "302": "Ruth" }
-        };
 
-        // Elementos do formulário
-        const blocoSelect = document.getElementById('bloco');
-        const apartamentoSelect = document.getElementById('apartamento');
-        const condominoSelect = document.getElementById('condomino');
-        const mesReferenciaSelect = document.getElementById('mesReferencia');
-        const valorInput = document.getElementById('valor');
-        const diaSelect = document.getElementById('dia');
-        const mesSelect = document.getElementById('mes');
-        const anoSelect = document.getElementById('ano');
-        const gerarReciboBtn = document.getElementById('gerarRecibo');
+      // --- 2. LÓGICA DO RECIBO ---
+      const condominos = {
+          "1": { "101": "Camila", "102": "Elizabeth", "201": "Luiz Emanoel / Cira", "202": "Ana / Bismarck", "301": "Luciane / Sidnei", "302": "Janaína" },
+          "2": { "101": "Luizette", "102": "Luiz Carlos / Alzira", "201": "Ismênia", "202": "José Guerra", "301": "Vanessa / Wesley", "302": "Ruth" }
+      };
 
-        // Função para converter valor numérico para extenso (MANTIDA)
-        function valorPorExtenso(valor) {
-            const unidades = ["", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"];
-            const dez_a_dezenove = ["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"];
-            const dezenas = ["", "dez", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"];
-            const centenas = ["", "cento", "duzentos", "trezentos", "quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"];
+      const blocoSelect = document.getElementById('bloco');
+      const apartamentoSelect = document.getElementById('apartamento');
+      const condominoSelect = document.getElementById('condomino');
+      const mesReferenciaSelect = document.getElementById('mesReferencia');
+      const valorInput = document.getElementById('valor');
+      const diaSelect = document.getElementById('dia');
+      const mesSelect = document.getElementById('mes');
+      const anoSelect = document.getElementById('ano');
+      const gerarReciboBtn = document.getElementById('gerarRecibo');
 
-            let valorStr = valor.toFixed(2);
-            let partes = valorStr.split('.');
-            let inteiro = parseInt(partes[0]);
-            let centavos = parseInt(partes[1]);
+      function valorPorExtenso(valor) {
+          const unidades = ["", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove"];
+          const dez_a_dezenove = ["dez", "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove"];
+          const dezenas = ["", "dez", "vinte", "trinta", "quarenta", "cinquenta", "sessenta", "setenta", "oitenta", "noventa"];
+          const centenas = ["", "cento", "duzentos", "trezentos", "quatrocentos", "quinhentos", "seiscentos", "setecentos", "oitocentos", "novecentos"];
+          let valorStr = valor.toFixed(2);
+          let partes = valorStr.split('.');
+          let inteiro = parseInt(partes[0]);
+          let centavos = parseInt(partes[1]);
+          if (inteiro === 0 && centavos === 0) return "zero reais";
+          let extenso = "";
+          if (inteiro > 0) {
+              if (inteiro === 1) { extenso += "um real"; }
+              else if (inteiro < 1000) {
+                  let c = Math.floor(inteiro / 100); let d = Math.floor((inteiro % 100) / 10); let u = inteiro % 10;
+                  if (c > 0) {
+                      extenso += centenas[c];
+                      if (c === 1 && d === 0 && u === 0) extenso = "cem"; else if (c > 0 && (d > 0 || u > 0)) extenso += " e ";
+                  }
+                  if (d > 1) {
+                      extenso += dezenas[d]; if (u > 0) extenso += " e " + unidades[u];
+                  } else if (d === 1) {
+                      extenso += dez_a_dezenove[u];
+                  } else if (u > 0) {
+                      extenso += unidades[u];
+                  }
+                  extenso += (extenso.includes("real") || extenso.includes("reais") ? "" : (inteiro === 1 ? " real" : " reais"));
+              } else { extenso += "valor alto em reais"; }
+          }
+          if (inteiro > 1 && !extenso.includes("reais")) extenso += " reais";
+          if (centavos > 0) {
+              if (inteiro > 0) extenso += " e ";
+              if (centavos === 1) {
+                  extenso += "um centavo";
+              } else if (centavos < 100) {
+                  let d = Math.floor(centavos / 10); let u = centavos % 10;
+                  if (d > 1) { extenso += dezenas[d]; if (u > 0) extenso += " e " + unidades[u]; }
+                  else if (d === 1) { extenso += dez_a_dezenove[u]; }
+                  else if (u > 0) { extenso += unidades[u]; }
+                  extenso += (centavos === 1 ? " centavo" : " centavos");
+              }
+          }
+          extenso = extenso.trim().toLowerCase();
+          if (extenso.length > 0) { extenso = extenso.charAt(0).toUpperCase() + extenso.slice(1); }
+          return extenso;
+      }
 
-            if (inteiro === 0 && centavos === 0) return "zero reais";
+      function formatarValor(valor) {
+          let v = valor.replace(/\D/g, '');
+          v = v.padStart(3, '0');
+          let centavos = v.slice(-2);
+          let reais = v.slice(0, -2);
+          reais = reais.replace(/^0+/, '');
+          if (reais === '') reais = '0';
+          reais = reais.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+          return `${reais},${centavos}`;
+      }
 
-            let extenso = "";
+      function preencherDias() {
+          diaSelect.innerHTML = '<option value="">Dia</option>';
+          const mes = mesSelect.value;
+          const ano = anoSelect.value;
+          if (mes && ano) {
+              const diasNoMes = new Date(ano, mes, 0).getDate();
+              for (let i = 1; i <= diasNoMes; i++) {
+                  const option = document.createElement('option');
+                  option.value = i < 10 ? '0' + i : i;
+                  option.textContent = i;
+                  diaSelect.appendChild(option);
+              }
+          }
+      }
 
-            if (inteiro > 0) {
-                if (inteiro === 1) {
-                    extenso += "um real";
-                } else if (inteiro < 1000) {
-                    let c = Math.floor(inteiro / 100);
-                    let d = Math.floor((inteiro % 100) / 10);
-                    let u = inteiro % 10;
+      function preencherDataAtual() {
+          const hoje = new Date();
+          const dia = String(hoje.getDate()).padStart(2, '0');
+          const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+          const ano = String(hoje.getFullYear());
+          if (document.querySelector(`#ano option[value="${ano}"]`)) {
+              anoSelect.value = ano;
+              mesSelect.value = mes;
+              preencherDias();
+              diaSelect.value = dia;
+          }
+      }
 
-                    if (c > 0) {
-                        extenso += centenas[c];
-                        if (c === 1 && d === 0 && u === 0) extenso = "cem";
-                        else if (c > 0 && (d > 0 || u > 0)) extenso += " e ";
-                    }
+      valorInput.addEventListener('input', function() {
+          const start = this.selectionStart;
+          const end = this.selectionEnd;
+          let valorAntigo = this.value;
+          this.value = formatarValor(valorAntigo);
+          const novoLength = this.value.length;
+          const diff = novoLength - valorAntigo.length;
+          this.setSelectionRange(start + diff, end + diff);
+      });
 
-                    if (d > 1) {
-                        extenso += dezenas[d];
-                        if (u > 0) extenso += " e " + unidades[u];
-                    } else if (d === 1) {
-                        extenso += dez_a_dezenove[u];
-                    } else if (u > 0) {
-                        extenso += unidades[u];
-                    }
+      blocoSelect.addEventListener('change', function() {
+          const bloco = this.value;
+          apartamentoSelect.innerHTML = '<option value="">Selecione o Apartamento</option>';
+          condominoSelect.innerHTML = '<option value="">Selecione o Condômino</option>';
+          if (bloco) {
+              apartamentoSelect.disabled = false;
+              const apartamentos = Object.keys(condominos[bloco]);
+              apartamentos.forEach(ap => {
+                  const option = document.createElement('option');
+                  option.value = ap;
+                  option.textContent = `Ap ${ap}`;
+                  apartamentoSelect.appendChild(option);
+              });
+          } else {
+              apartamentoSelect.disabled = true;
+              condominoSelect.disabled = true;
+          }
+      });
 
-                    extenso += (extenso.includes("real") || extenso.includes("reais") ? "" : (inteiro === 1 ? " real" : " reais"));
-                } else {
-                    extenso += "valor alto em reais";
-                }
-            }
-            if (inteiro > 1 && !extenso.includes("reais")) extenso += " reais";
+      apartamentoSelect.addEventListener('change', function() {
+          const bloco = blocoSelect.value;
+          const apartamento = this.value;
+          condominoSelect.innerHTML = '<option value="">Selecione o Condômino</option>';
+          if (bloco && apartamento && condominos[bloco][apartamento]) {
+              condominoSelect.disabled = false;
+              const nomeCondomino = condominos[bloco][apartamento];
+              const option = document.createElement('option');
+              option.value = nomeCondomino;
+              option.textContent = nomeCondomino;
+              condominoSelect.appendChild(option);
+              condominoSelect.value = nomeCondomino;
+          } else {
+              condominoSelect.disabled = true;
+          }
+      });
 
-            if (centavos > 0) {
-                if (inteiro > 0) extenso += " e ";
+      mesSelect.addEventListener('change', preencherDias);
+      anoSelect.addEventListener('change', preencherDias);
 
-                if (centavos === 1) {
-                    extenso += "um centavo";
-                } else if (centavos < 100) {
-                    let d = Math.floor(centavos / 10);
-                    let u = centavos % 10;
+      preencherDataAtual();
 
-                    if (d > 1) {
-                        extenso += dezenas[d];
-                        if (u > 0) extenso += " e " + unidades[u];
-                    } else if (d === 1) {
-                        extenso += dez_a_dezenove[u];
-                    } else if (u > 0) {
-                        extenso += unidades[u];
-                    }
+      function gerarConteudoRecibo() {
+          const valorInputLimpo = valorInput.value.replace(/\./g, '').replace(',', '.');
+          const valor = parseFloat(valorInputLimpo);
+          if (isNaN(valor)) return '';
+          const valorFormatado = valor.toFixed(2).replace('.', ',');
+          const valorExtenso = valorPorExtenso(valor);
 
-                    extenso += (centavos === 1 ? " centavo" : " centavos");
-                }
-            }
+          const mesRef = mesReferenciaSelect.value.split('/');
+          const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                          'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+          const mesReferenciaExtenso = `${meses[parseInt(mesRef[0]) - 1]} de ${mesRef[1]}`;
 
-            extenso = extenso.trim().toLowerCase();
-            if (extenso.length > 0) {
-                extenso = extenso.charAt(0).toUpperCase() + extenso.slice(1);
-            }
+          const mesReciboExtenso = meses[parseInt(mesSelect.value) - 1];
+          const dataRecibo = `${parseInt(diaSelect.value)} de ${mesReciboExtenso} de ${anoSelect.value}`;
 
-            return extenso;
-        }
+          return `
+              <!DOCTYPE html>
+              <html lang="pt-BR">
+              <head>
+                  <meta charset="UTF-8">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <title>Recibo de Condomínio</title>
+                  <style>
+                      body { font-family: Arial, sans-serif; margin: 0; padding: 20px; line-height: 1.6; background: white; }
+                      .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+                      .recibo { padding: 30px; border: 1px solid #007bff; border-radius: 8px; background-color: #f0f8ff; min-height: 250px; }
+                      .recibo-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #007bff; padding-bottom: 15px; }
+                      .recibo-header h2 { font-size: 1.6rem; color: #007bff; margin: 0; }
+                      .recibo-details { margin-bottom: 25px; font-size: 1.1rem; }
+                      .recibo-details p { margin-bottom: 12px; }
+                      .recibo-details strong { color: #343a40; }
+                      .assinatura-area { display: flex; flex-direction: column; align-items: flex-end; margin-top: 50px; padding-top: 20px; border-top: 1px dashed #6c757d; }
+                      .assinatura-line {
+                          width: 200px;
+                          border-bottom: 1px solid #000;
+                          margin-bottom: 5px;
+                          position: relative;
+                          height: 40px;
+                          display: flex;
+                          justify-content: center;
+                          align-items: flex-end;
+                      }
+                      .assinatura-line img {
+                          position: absolute;
+                          height: 50px;
+                          bottom: 0px;
+                          left: 50%;
+                          transform: translateX(-50%);
+                          max-width: 100%;
+                          object-fit: contain;
+                      }
+                      .assinatura-text p { margin: 0; font-size: 0.95rem; text-align: right; }
+                      .button-group { margin-top: 30px; text-align: center; }
+                      #voltarRecibo { background-color: #dc3545; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
+                      #voltarRecibo:hover { opacity: 0.9; }
+                      @media print {
+                          .button-group, #voltarRecibo { display: none !important; }
+                          .recibo { border: none; background-color: white; }
+                      }
+                  </style>
+              </head>
+              <body onload="window.print();">
+                  <div class="container">
+                      <div class="recibo">
+                          <div class="recibo-header">
+                              <h2>RECIBO DE PAGAMENTO</h2>
+                              <p>CONDOMÍNIO RESIDENCIAL MANDALA II</p>
+                              <p>Rua Humberto de Campos, nº273, Bairro da Luz Nova Iguaçu RJ</p>
+                          </div>
 
-        // Função para formatar o valor como moeda brasileira (MANTIDA)
-        function formatarValor(valor) {
-            let v = valor.replace(/\D/g, '');
-            v = v.padStart(3, '0');
-            let centavos = v.slice(-2);
-            let reais = v.slice(0, -2);
-            reais = reais.replace(/^0+/, '');
-            if (reais === '') reais = '0';
-            reais = reais.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-            return `${reais},${centavos}`;
-        }
+                          <div class="recibo-details">
+                              <p>Recebi do Sr.(a) <strong>${condominoSelect.value}</strong> a quantia de <strong>R$ ${valorFormatado} (${valorExtenso})</strong> referente ao pagamento da taxa condominial do mês <strong>${mesReferenciaExtenso}</strong>.</p>
+                              <p>Unidade: Bloco <strong>${blocoSelect.value}</strong> Apartamento: <strong>${apartamentoSelect.value}</strong></p>
+                          </div>
 
-        // FUNÇÃO: Preencher dias do mês (MANTIDA)
-        function preencherDias() {
-            diaSelect.innerHTML = '<option value="">Dia</option>';
-            const mes = mesSelect.value;
-            const ano = anoSelect.value;
-            if (mes && ano) {
-                const diasNoMes = new Date(ano, mes, 0).getDate();
-                for (let i = 1; i <= diasNoMes; i++) {
-                    const option = document.createElement('option');
-                    option.value = i < 10 ? '0' + i : i;
-                    option.textContent = i;
-                    diaSelect.appendChild(option);
-                }
-            }
-        }
+                          <div class="assinatura-area">
+                              <p>Nova Iguaçu, ${dataRecibo}</p>
+                              <div class="assinatura-line">
+                                  <img src="imagens/Rubrica_síndico.png" alt="Rubrica do Síndico">
+                              </div>
+                              <div class="assinatura-text">
+                                  <p>Responsável pelo Condomínio</p>
+                                  <p>Luiz Sales - Síndico</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="button-group">
+                          <button type="button" id="voltarRecibo" onclick="window.close();">Fechar Recibo</button>
+                      </div>
+                  </div>
+              </body>
+              </html>
+          `;
+      }
 
-        // FUNÇÃO: Preencher a data atual como padrão (MANTIDA)
-        function preencherDataAtual() {
-            const hoje = new Date();
-            const dia = String(hoje.getDate()).padStart(2, '0');
-            const mes = String(hoje.getMonth() + 1).padStart(2, '0');
-            const ano = String(hoje.getFullYear());
-            if (document.querySelector(`#ano option[value="${ano}"]`)) {
-                anoSelect.value = ano;
-                mesSelect.value = mes;
-                preencherDias();
-                diaSelect.value = dia;
-            }
-        }
-        
-        // Eventos do Formulário (MANTIDOS)
-        valorInput.addEventListener('input', function() {
-            const start = this.selectionStart;
-            const end = this.selectionEnd;
-            let valorAntigo = this.value;
-            let valorLimpo = this.value.replace(/\D/g, '');
-            this.value = formatarValor(valorAntigo);
-            const novoLength = this.value.length;
-            const diff = novoLength - valorAntigo.length;
-            this.setSelectionRange(start + diff, end + diff);
-        });
+      gerarReciboBtn.addEventListener('click', function() {
+          if (!blocoSelect.value || !apartamentoSelect.value || !condominoSelect.value ||
+              !mesReferenciaSelect.value || !valorInput.value || !diaSelect.value ||
+              !mesSelect.value || !anoSelect.value) {
+              alert('Por favor, preencha todos os campos obrigatórios.');
+              return;
+          }
 
-        blocoSelect.addEventListener('change', function() {
-            const bloco = this.value;
-            apartamentoSelect.innerHTML = '<option value="">Selecione o Apartamento</option>';
-            condominoSelect.innerHTML = '<option value="">Selecione o Condômino</option>';
-            if (bloco) {
-                apartamentoSelect.disabled = false;
-                const apartamentos = Object.keys(condominos[bloco]);
-                apartamentos.forEach(ap => {
-                    const option = document.createElement('option');
-                    option.value = ap;
-                    option.textContent = `Ap ${ap}`;
-                    apartamentoSelect.appendChild(option);
-                });
-            } else {
-                apartamentoSelect.disabled = true;
-                condominoSelect.disabled = true;
-            }
-        });
+          const novaJanela = window.open('', '_blank');
+          const conteudo = gerarConteudoRecibo();
 
-        apartamentoSelect.addEventListener('change', function() {
-            const bloco = blocoSelect.value;
-            const apartamento = this.value;
-            condominoSelect.innerHTML = '<option value="">Selecione o Condômino</option>';
-            if (bloco && apartamento && condominos[bloco][apartamento]) {
-                condominoSelect.disabled = false;
-                const nomeCondomino = condominos[bloco][apartamento];
-                const option = document.createElement('option');
-                option.value = nomeCondomino;
-                option.textContent = nomeCondomino;
-                condominoSelect.appendChild(option);
-                condominoSelect.value = nomeCondomino; 
-            } else {
-                condominoSelect.disabled = true;
-            }
-        });
+          if (conteudo) {
+              novaJanela.document.write(conteudo);
+              novaJanela.document.close();
+          } else {
+              novaJanela.close();
+              alert('Erro ao processar o valor. Verifique se o formato está correto.');
+          }
 
-        mesSelect.addEventListener('change', preencherDias);
-        anoSelect.addEventListener('change', preencherDias);
-
-        preencherDataAtual();
-
-        // Função para gerar o conteúdo do recibo na nova janela de impressão
-        function gerarConteudoRecibo() {
-            const valorInputLimpo = valorInput.value.replace(/\./g, '').replace(',', '.');
-            const valor = parseFloat(valorInputLimpo);
-            if (isNaN(valor)) {
-                return '';
-            }
-            const valorFormatado = valor.toFixed(2).replace('.', ',');
-            const valorExtenso = valorPorExtenso(valor); 
-
-            const mesRef = mesReferenciaSelect.value.split('/');
-            const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-                            'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-            const mesReferenciaExtenso = `${meses[parseInt(mesRef[0]) - 1]} de ${mesRef[1]}`;
-            
-            const mesReciboExtenso = meses[parseInt(mesSelect.value) - 1];
-            const dataRecibo = `${parseInt(diaSelect.value)} de ${mesReciboExtenso} de ${anoSelect.value}`;
-
-            // --- CÓDIGO HTML DO RECIBO NA NOVA JANELA (COM O CAMINHO DA RUBRICA CORRETO) ---
-            return `
-                <!DOCTYPE html>
-                <html lang="pt-BR">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Recibo de Condomínio</title>
-                    <style>
-                        /* Estilos da janela de impressão (MANTIDOS E ADAPTADOS PARA A RUBRICA) */
-                        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; line-height: 1.6; background: white; }
-                        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-                        .recibo { padding: 30px; border: 1px solid #007bff; border-radius: 8px; background-color: #f0f8ff; min-height: 250px; }
-                        .recibo-header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #007bff; padding-bottom: 15px; }
-                        .recibo-header h2 { font-size: 1.6rem; color: #007bff; margin: 0; }
-                        .recibo-details { margin-bottom: 25px; font-size: 1.1rem; }
-                        .recibo-details p { margin-bottom: 12px; }
-                        .recibo-details strong { color: #343a40; }
-                        
-                        /* Área de Assinatura */
-                        .assinatura-area { display: flex; flex-direction: column; align-items: flex-end; margin-top: 50px; padding-top: 20px; border-top: 1px dashed #6c757d; }
-                        .assinatura-line {
-                            width: 200px; 
-                            border-bottom: 1px solid #000; 
-                            margin-bottom: 5px;
-                            position: relative;
-                            height: 40px; 
-                            display: flex;
-                            justify-content: center;
-                            align-items: flex-end; 
-                        }
-                        .assinatura-line img {
-                            position: absolute;
-                            height: 50px; /* Tamanho da rubrica */
-                            bottom: 0px; 
-                            left: 50%;
-                            transform: translateX(-50%);
-                            max-width: 100%;
-                            object-fit: contain;
-                        }
-                        .assinatura-text p { margin: 0; font-size: 0.95rem; text-align: right; }
-                        
-                        .button-group { margin-top: 30px; text-align: center; }
-                        #voltarRecibo { background-color: #dc3545; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); }
-                        #voltarRecibo:hover { opacity: 0.9; }
-                        
-                        @media print {
-                            .button-group, #voltarRecibo { display: none !important; }
-                            .recibo { border: none; background-color: white; }
-                        }
-                    </style>
-                </head>
-                <body onload="window.print();">
-                    <div class="container">
-                        <div class="recibo">
-                            <div class="recibo-header">
-                                <h2>RECIBO DE PAGAMENTO</h2>
-                                <p>CONDOMÍNIO RESIDENCIAL MANDALA II</p>
-                                <p>Rua Humberto de Campos, nº273, Bairro da Luz Nova Iguaçu RJ</p>
-                            </div>
-
-                            <div class="recibo-details">
-                                <p>Recebi do Sr.(a) <strong>${condominoSelect.value}</strong> a quantia de <strong>R$ ${valorFormatado} (${valorExtenso})</strong> referente ao pagamento da taxa condominial do mês <strong>${mesReferenciaExtenso}</strong>.</p>
-                                <p>Unidade: Bloco <strong>${blocoSelect.value}</strong> Apartamento: <strong>${apartamentoSelect.value}</strong></p>
-                            </div>
-
-                            <div class="assinatura-area">
-                                <p>Nova Iguaçu, ${dataRecibo}</p>
-                                <div class="assinatura-line">
-                                    <img src="imagens/Rubrica_síndico.png" alt="Rubrica do Síndico"> 
-                                </div>
-                                <div class="assinatura-text">
-                                    <p>Responsável pelo Condomínio</p>
-                                    <p>Luiz Sales - Síndico</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="button-group">
-                            <button type="button" id="voltarRecibo" onclick="window.close();">Fechar Recibo</button>
-                        </div>
-                    </div>
-                </body>
-                </html>
-            `;
-        }
-
-        // Evento para gerar recibo (MANTIDO)
-        gerarReciboBtn.addEventListener('click', function() {
-            if (!blocoSelect.value || !apartamentoSelect.value || !condominoSelect.value ||
-                !mesReferenciaSelect.value || !valorInput.value || !diaSelect.value ||
-                !mesSelect.value || !anoSelect.value) {
-                alert('Por favor, preencha todos os campos obrigatórios.');
-                return;
-            }
-
-            const novaJanela = window.open('', '_blank');
-            const conteudo = gerarConteudoRecibo();
-            
-            if (conteudo) {
-                novaJanela.document.write(conteudo);
-                novaJanela.document.close();
-            } else {
-                novaJanela.close();
-                alert('Erro ao processar o valor. Verifique se o formato está correto.');
-            }
-
-            document.getElementById('reciboForm').reset();
-            apartamentoSelect.disabled = true;
-            condominoSelect.disabled = true;
-            diaSelect.innerHTML = '<option value="">Dia</option>';
-            preencherDataAtual();
-        });
-
+          document.getElementById('reciboForm').reset();
+          apartamentoSelect.disabled = true;
+          condominoSelect.disabled = true;
+          diaSelect.innerHTML = '<option value="">Dia</option>';
+          preencherDataAtual();
+      });
     </script>
-</body>
+  </body>
 </html>
